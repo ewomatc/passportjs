@@ -6,10 +6,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const path = require('path')
 const mongoose = require('mongoose')
 const indexRouter = require('./routers/indexRouter')
-const userRouter = require('./routers/userRouter')
+const userRouter = require('./routers/userRouter');
+const User = require('./models/user');
 
 const app = express()
-app.use(express.urlencoded({ extended: false }));
 
 
 //database setup
@@ -28,16 +28,55 @@ connectToDb()
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
-//use routers/controllers
-app.use('/', indexRouter)
-app.use('/', userRouter)
-
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+
+
+//validate username and password, check if username exista and passwords match
+passport.use(
+  new LocalStrategy( async(username, password, done) => {
+    try {
+      const user = await User.findOne({username: username})
+      if(!user) {
+        return done(null, false, {message: 'Username not found'})
+      }
+      if(user.password != password) {
+        return done(null, false, {message: 'Incorrect Password'})
+      }
+      return done(null, user)
+    } catch (error) {
+      done(error)
+    }
+  })
+)
+
+//serialize 
+//serialization is changing the user object to a unique identifier format which can be stored in the session
+//the user parameter here is what we got from the done() in the authentication above. 
+//in this case we're using the user's id provided by mongodb as the identifier.
+passport.serializeUser( function(user, done) {
+  done(null, user.id)
+})
+
+//deserialize
+//is used to retrieve the unique session id that was stored each time a user makes a request
+passport.deserializeUser( async(id, done) => {
+  try {
+    const user = await User.findById(id)
+    done(null, user)
+  } catch (error) {
+    done(error)
+  }
+})
+
+app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 
+//use routers/controllers
+app.use('/', indexRouter)
+app.use('/', userRouter)
 
 
 //server setup

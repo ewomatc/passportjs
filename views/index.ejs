@@ -5,8 +5,14 @@
   <title>Passportjs Auth</title>
 </head>
 <body>
+  <% if (user) {%>
+    <h1>Welcome back <%= user.username%></h1>
+    <p>This is your demo dashboard. :)</p>
+    <a href="/log-out">Log Out</a>
+    <% } else {%>
   <h1>Welcome,</h1>
   <h2>This is a lesson on passport authentication</h2>
-  <a href="/sign-up">Sign up</a>
+  <a href="/sign-up">Sign up</a> <i>-----or------</i> <a href="/log-in">log-in</a>
+  <% } %> 
 </body>
 </html>

@@ -1,0 +1,27 @@
+const boys = [
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+  {name: 'David', age: 30},
+  {name: 'John', age: 35},
+  {name: 'Paulo', age: 28},
+]
+
+console.table(boys)
