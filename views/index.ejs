@@ -3,16 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <title>Passportjs Auth</title>
+  <style>
+    /* Reset default styles */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Background and text styles */
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+/* Container styles */
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Heading styles */
+h1, h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Paragraph styles */
+p {
+  text-align: center;
+}
+
+/* Button styles */
+a {
+  display: flex;
+  width: 30%;
+  margin: 10px auto;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  /* Adjust container width for smaller screens */
+  body {
+    max-width: 100%;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Modify heading and paragraph font sizes for smaller screens */
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  p {
+    font-size: 14px;
+  }
+}
+
+  </style>
 </head>
 <body>
   <% if (user) {%>
     <h1>Welcome back <%= user.username%></h1>
-    <p>This is your demo dashboard. :)</p>
+    <p>This is a message from me to you, you are special :)</p>
     <a href="/log-out">Log Out</a>
     <% } else {%>
   <h1>Welcome,</h1>
   <h2>This is a lesson on passport authentication</h2>
-  <a href="/sign-up">Sign up</a> <i>-----or------</i> <a href="/log-in">log-in</a>
+  <p>Login or Signup to see a special message!</p>
+  <a href="/sign-up">Sign up</a>  <a href="/log-in">log-in</a>
   <% } %> 
 </body>
 </html>

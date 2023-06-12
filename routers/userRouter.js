@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const router = require('express').Router()
 const mongoose = require('mongoose')
 const passport = require('passport')
@@ -10,10 +11,16 @@ router.get('/sign-up', (req, res) => {
 
 router.post('/sign-up', async(req, res, next) => {
   try {
+    const {username, password} = req.body;
+    //generate salt
+    const salt = await bcrypt.genSalt(10)
+    //hash the password
+    const hashedPassword = await bcrypt.hash(password, salt)
+
     const user = new User({
-      username: req.body.username,
-      password: req.body.password,
-    })
+      username: username,
+      password: hashedPassword
+      })
     await user.save()
     res.redirect('/')
   }
